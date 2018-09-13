@@ -403,13 +403,11 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 80%;
-	width: 80%;
+        height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 80%;
-	width: 80%;
+        height: 100%;
         margin: 0;
         padding: 0;
       }
@@ -421,7 +419,7 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 44.8, lng: 68.8},
+          center: {lat: 68.8, lng: 44.4},
           zoom: 8
         });
       }
