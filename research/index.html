@@ -527,7 +527,7 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
 
       // The onRemove() method will be called automatically from the API if
       // we ever set the overlay's map property to 'null'.
-      USGSOverlay.prototype.onRemove = function() {
+      EFIOverlay.prototype.onRemove = function() {
         this.div_.parentNode.removeChild(this.div_);
         this.div_ = null;
       };
