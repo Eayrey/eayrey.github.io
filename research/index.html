@@ -431,15 +431,11 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
       EFIOverlay.prototype = new google.maps.OverlayView();
 
       // Initialize the map and the custom overlay.
-	var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
-          center: {lat: 44.4, lng: -68.8},
-          //mapTypeId: 'satellite'
-        });
       function initMap() {
+	var latlng = new google.maps.LatLng(44.4, -68.8);
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 11,
-          center: {lat: 44.4, lng: -68.8},
+          center: latlng,
           //mapTypeId: 'satellite'
         });
 
