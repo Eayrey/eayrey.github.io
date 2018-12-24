@@ -443,7 +443,11 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
       EFIOverlay.prototype = new google.maps.OverlayView();
 
       // Initialize the map and the custom overlay.
-	var map;
+	var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: {lat: 44.4, lng: -68.8},
+          //mapTypeId: 'satellite'
+        };
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 11,
@@ -490,7 +494,7 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
         div.style.borderWidth = '0px';
         div.style.position = 'absolute';
 
-        // Create the img element and attach it to the div.
+        // Create the img element and attach it to the div
         var img = document.createElement('img');
         img.src = this.image_;
         img.style.width = '100%';
