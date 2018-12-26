@@ -436,9 +436,12 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
     </style>
   </head>
   <body>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI"></script>
     <div id="map"></div>
     <script>
+      var overlay;
+      USGSOverlay.prototype = new google.maps.OverlayView();
+	    
       var map;
       function initMap() {
 	var latlng = new google.maps.LatLng(44.4, -68.8);
