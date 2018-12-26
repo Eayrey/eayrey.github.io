@@ -412,116 +412,47 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
         padding: 0;
       }
     </style>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI&callback=initMap" 
-	type="text/javascript"></script>
+
+	  
+	  
     //New script for map with Biomass
-     <script>
-      // This example creates a custom overlay called USGSOverlay, containing
-      // a U.S. Geological Survey (USGS) image of the relevant area on the map.
-
-      // Set the custom overlay object's prototype to a new instance
-      // of OverlayView. In effect, this will subclass the overlay class therefore
-      // it's simpler to load the API synchronously, using
-      // google.maps.event.addDomListener().
-      // Note that we set the prototype to an instance, rather than the
-      // parent class itself, because we do not wish to modify the parent class.
-
-      var overlay;
-      EFIOverlay.prototype = new google.maps.OverlayView();
-
-      // Initialize the map and the custom overlay.
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
       function initMap() {
 	var latlng = new google.maps.LatLng(44.4, -68.8);
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
+        map = new google.maps.Map(document.getElementById('map'), {
           center: latlng,
-          //mapTypeId: 'satellite'
+          zoom: 8
         });
-
-        var bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(40.96317695585018,-73.70227748558615),
-            new google.maps.LatLng(48.13622449954456, -64.45861321199628));
-
-        // Link to google drive photo.
-        var srcImage = 'https://github.com/Eayrey/eayrey.github.io/blob/master/research/modis_growing_len.tif';
-
-        // The custom EFIOverlay object contains the EFI image,
-        // the bounds of the image, and a reference to the map.
-        overlay = new EFIOverlay(bounds, srcImage, map);
       }
-
-      /** @constructor */
-      function EFIOverlay(bounds, image, map) {
-        // Initialize all properties.
-        this.bounds_ = bounds;
-        this.image_ = image;
-        this.map_ = map;
-
-        // Define a property to hold the image's div. We'll
-        // actually create this div upon receipt of the onAdd()
-        // method so we'll leave it null for now.
-        this.div_ = null;
-
-        // Explicitly call setMap on this overlay.
-        this.setMap(map);
-      }
-
-      /**
-       * onAdd is called when the map's panes are ready and the overlay has been
-       * added to the map.
-       */
-      EFIOverlay.prototype.onAdd = function() {
-
-        var div = document.createElement('div');
-        div.style.borderStyle = 'none';
-        div.style.borderWidth = '0px';
-        div.style.position = 'absolute';
-
-        // Create the img element and attach it to the div
-        var img = document.createElement('img');
-        img.src = this.image_;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.position = 'absolute';
-        div.appendChild(img);
-
-        this.div_ = div;
-
-        // Add the element to the "overlayLayer" pane.
-        var panes = this.getPanes();
-        panes.overlayLayer.appendChild(div);
-      };
-
-      EFIOverlay.prototype.draw = function() {
-
-        // We use the south-west and north-east
-        // coordinates of the overlay to peg it to the correct position and size.
-        // To do this, we need to retrieve the projection from the overlay.
-        var overlayProjection = this.getProjection();
-
-        // Retrieve the south-west and north-east coordinates of this overlay
-        // in LatLngs and convert them to pixel coordinates.
-        // We'll use these coordinates to resize the div.
-        var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-        var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-
-        // Resize the image's div to fit the indicated dimensions.
-        var div = this.div_;
-        div.style.left = sw.x + 'px';
-        div.style.top = ne.y + 'px';
-        div.style.width = (ne.x - sw.x) + 'px';
-        div.style.height = (sw.y - ne.y) + 'px';
-      };
-
-      // The onRemove() method will be called automatically from the API if
-      // we ever set the overlay's map property to 'null'.
-      EFIOverlay.prototype.onRemove = function() {
-        this.div_.parentNode.removeChild(this.div_);
-        this.div_ = null;
-      };
-
-      google.maps.event.addDomListener(window, 'load', initMap);
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI&callback=initMap"
+    async defer></script>
+  </body>
+</html>
+	  
+//////////////////////////////////////////////////
       <div id="preFooter">
         <div class="pre-footer-inner">
           <div class="sqs-layout sqs-grid-12 columns-12" data-layout-label="Pre-Footer Content" data-type="block-field" data-updated-on="1493670391770" id="preFooterBlocks"><div class="row sqs-row"><div class="col sqs-col-12 span-12"><div class="row sqs-row"><div class="col sqs-col-6 span-6"><div class="sqs-block button-block sqs-block-button" data-block-type="53" id="block-yui_3_17_2_4_1493669825451_47556"><div class="sqs-block-content">
