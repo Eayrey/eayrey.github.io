@@ -395,106 +395,56 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
         -->
         
       </main>
-</div>	  
+</div>	 
 	  
-    //New script for map with Biomass
-<html>
-  <head>
-    <title>MODIS Map</title>
-    <meta name="viewport" content="initial-scale=0.5">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 70%;
-	width: 50;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 70%;
-	width: 50;
-        margin: 0;
-        padding: 100;
-      }
-    </style>
-  </head>
-  <body>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI"></script>
-    <div id="map"></div>
-    <script>
-      var overlay;
-      USGSOverlay.prototype = new google.maps.OverlayView();
-	    
-      var map;
-      function initMap() {
-	var latlng = new google.maps.LatLng(44.4, -68.8);
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: latlng,
-          zoom: 8
-        });
-	var bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(40.94040057047287,-73.71286087947094),
-            new google.maps.LatLng(47.34743969635432, -66.85155954866897));
+<div id="map" style="width: 600px; height: 400px"></div>
+// Load client library.
+const ee = window.ee = require('@google/earthengine');
+const CLIENT_ID = 'elias.ayrey@maine.edu';
 
-	var srcImage = 'https://storage.googleapis.com/abovemaine.com/Biomass_greyscale4_png.png';      
-	overlay = new USGSOverlay(bounds, srcImage, map);
-      }
-	
-	// WTF is the point of this function??    
-      function USGSOverlay(bounds, image, map) {
-        this.bounds_ = bounds;
-        this.image_ = image;
-        this.map_ = map;
-        this.div_ = null;
-        this.setMap(map);
-      }
-      USGSOverlay.prototype.onAdd = function() {
+window.initMap = function () {
+  // Initialize client library.
+  const initialize = function () {
+    ee.initialize(null, null, () => {
+      createMap();
+    }, (e) => {
+      console.error('Initialization error: ' + e);
+    });
+  };
 
-        var div = document.createElement('div');
-        div.style.borderStyle = 'none';
-        div.style.borderWidth = '0px';
-        div.style.position = 'absolute';
+  // Authenticate using an OAuth pop-up.
+  ee.data.authenticateViaOauth(CLIENT_ID, initialize, (e) => {
+    console.error('Authentication error: ' + e);
+  }, null, () => {
+    ee.data.authenticateViaPopup(initialize);
+  });
+};
 
-        // Create the img element and attach it to the div.
-        var img = document.createElement('img');
-        img.src = this.image_;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.position = 'absolute';
-        div.appendChild(img);
+function createMap() {
+  // Initialize map.
+  const mapEl = document.querySelector('#map');
+  const map = new google.maps.Map(mapEl, {
+    center: new google.maps.LatLng(39.8282, -98.5795),
+    zoom: 5
+  });
 
-        this.div_ = div;
+  // Load EE image.
+  const image = ee.Image('srtm90_v4');
+  image.getMap({ min: 0, max: 1000 }, ({ mapid, token }) => {
 
-        // Add the element to the "overlayLayer" pane.
-        var panes = this.getPanes();
-        panes.overlayLayer.appendChild(div);
-      };
+    // Create Google Maps overlay.
+    const mapType = new google.maps.ImageMapType({
+      getTileUrl: ({ x, y }, z) =>
+        `https://earthengine.googleapis.com/map/${mapid}/${z}/${x}/${y}?token=${token}`,
+      tileSize: new google.maps.Size(256, 256)
+    });
 
-      USGSOverlay.prototype.draw = function() {
-        var overlayProjection = this.getProjection();
+    // Add the EE layer to the map.
+    map.overlayMapTypes.push(mapType);
 
-        var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
-        var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
-
-        // Resize the image's div to fit the indicated dimensions.
-        var div = this.div_;
-        div.style.left = sw.x + 'px';
-        div.style.top = ne.y + 'px';
-        div.style.width = (ne.x - sw.x) + 'px';
-        div.style.height = (sw.y - ne.y) + 'px';
-      };
-      // The onRemove() method will be called automatically from the API if
-      // we ever set the overlay's map property to 'null'.
-      USGSOverlay.prototype.onRemove = function() {
-        this.div_.parentNode.removeChild(this.div_);
-        this.div_ = null;
-      };
-      google.maps.event.addDomListener(window, 'load', initMap);
-	    
-	    
-	    
-    </script>
+  });
+}
+In a re	  
   </body>
 </html>
 	  
