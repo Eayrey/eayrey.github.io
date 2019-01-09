@@ -415,10 +415,6 @@ window.initMap = function () {
 
   // Authenticate using a not so private private key.
   ee.data.authenticateViaPrivateKey(privateKey);
-};
-window.initMap;
-function createMap() {
-  // Initialize map.
   const mapEl = document.querySelector('#map');
   const map = new google.maps.Map(mapEl, {
     center: new google.maps.LatLng(44.4, -68.8),
@@ -438,12 +434,11 @@ function createMap() {
 
     // Add the EE layer to the map.
     map.overlayMapTypes.push(mapType);
+};
 
-  });
-} 
-createMap();
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuyYYTjX6IJQx6M3r5tw1qJR6BAgMcqeI" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhFsRlMN7_pAu7S6yqOw7oBUrTmrqO90U&callback=initMap"
+    async defer></script>
   </body>
 </html>
 
