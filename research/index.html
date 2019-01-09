@@ -400,7 +400,7 @@ isNaN(b)?!0:a>b};this._resetAlt=function(a,b){var d=a.getAttribute("alt"),c=d&&0
 <div id="map" style="width: 600px; height: 400px"></div>
 // Load client library.
 const ee = window.ee = require('@google/earthengine');
-const CLIENT_ID = 'elias.ayrey@maine.edu';
+const CLIENT_ID = 'gee-tst@my-project-1530023788536.iam.gserviceaccount.com';
 
 window.initMap = function () {
   // Initialize client library.
@@ -424,13 +424,13 @@ function createMap() {
   // Initialize map.
   const mapEl = document.querySelector('#map');
   const map = new google.maps.Map(mapEl, {
-    center: new google.maps.LatLng(39.8282, -98.5795),
-    zoom: 5
+    center: new google.maps.LatLng(44.4, -68.8),
+    zoom: 8
   });
 
   // Load EE image.
-  const image = ee.Image('srtm90_v4');
-  image.getMap({ min: 0, max: 1000 }, ({ mapid, token }) => {
+  const image = ee.Image('users/eliasayrey/Final_EFI/Biomass_Tot_19');
+  image.getMap({ min: 0, max: 2500 }, ({ mapid, token }) => {
 
     // Create Google Maps overlay.
     const mapType = new google.maps.ImageMapType({
@@ -443,8 +443,7 @@ function createMap() {
     map.overlayMapTypes.push(mapType);
 
   });
-}
-In a re	  
+}  
   </body>
 </html>
 	  
